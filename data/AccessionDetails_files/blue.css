@@ -1,0 +1,619 @@
+/* Site defaults */
+body
+{
+	margin: 10px;
+	font-family: Arial;
+	font-size: 10pt;
+	color: #003366;
+}
+ /* Shopping cart slider */
+ #panel {
+	background: #d9e1e8;
+	height: 200px;
+	display: none;
+}
+.slide {
+	margin: 0;
+	padding: 0;
+	border-top: solid 4px #003366;
+	background: url(../images/btn-slide.gif) no-repeat center top;
+}
+.btn-slide {
+	background: url(../images/white-arrow.gif) no-repeat right -50px;
+	text-align: center;
+	width: 144px;
+	height: 31px;
+	padding: 10px 10px 0 0;
+	margin: 0 auto;
+	display: block;
+	font: bold 120%/100% Arial, Helvetica, sans-serif;
+	color: #fff;
+	text-decoration: none;
+}
+.active {
+	background-position: right 12px;
+}
+
+
+
+
+/* Error Messages */
+#errmsg
+{
+	font-family: Arial;
+	font-size: 9pt;
+	color: #FF0000;
+}
+
+
+/* Page title */
+.page_title
+{
+	/*vertical-align: text-bottom;*/
+	padding-bottom: 2px;
+	font-family: Arial;
+	font-size: 10pt;
+	color: #003366;
+}
+.page_title_line
+{
+	border-top: solid 3px #003366;
+}
+
+/* Search Tabel met afwisselende rij kleuren voor specifieke scopes*/
+.searchtbl
+{
+}
+.searchtbl .header
+{
+	font-size: 10pt;
+	font-family: Arial;
+	font-weight: bold;
+	color: #003366;
+	background-color: #CCD6E0;
+	padding-left: 6px;
+	padding-top: 6px;
+	padding-right: 4px;
+	padding-bottom: 5px;
+}
+.searchtbl .header TD
+{
+	border-top: solid 1px #ccd6e0;
+	border-bottom: solid 1px #003366;
+	border-left: solid 1px #aaaaaa;
+}
+.searchtbl .header A
+{
+	font-size: 10pt;
+	font-family: Arial;
+	font-weight: bold;
+	color: #003366;
+	text-decoration: none;
+}
+.searchtbl .header A:hover
+{
+	text-decoration: underline;
+}
+.searchtbl .currentheader
+{
+	background-color: #b7c5d4;
+}
+.searchtbl .pager
+{
+	background-color: #FFFFFF;
+	padding-bottom: 6px;
+	padding-top: 6px;
+	font-size: 10pt;
+	font-family: Arial;
+	color: #003366;
+	border: solid 1px #FFFFFF;
+}
+.searchtbl .pager a
+{
+	font-size: 10pt;
+	font-family: Arial;
+	color: #003366;
+	text-decoration: none;
+}
+.searchtbl .pager a:hover
+{
+	text-decoration: underline;
+}
+.searchtbl .row
+{
+	background-color: #d9e1e8;
+	font-size: 10pt;
+	font-family: Arial;
+	color: #003366;
+	padding-left: 4px;
+	padding-top: 6px;
+	padding-right: 4px;
+	padding-bottom: 6px;
+}
+.searchtbl .row a, .searchtbl .altrow a
+{
+	font-size: 10pt;
+	font-family: Arial;
+	color: #003366;
+	font-weight: bold;
+	text-decoration: none;
+}
+.searchtbl .row a:hover, .searchtbl .altrow a:hover
+{
+	text-decoration: underline;
+}
+.searchtbl .row TD, .searchtbl .altrow TD
+{
+	border-left: solid 1px #aaaaaa;
+}
+.searchtbl .altrow
+{
+	background-color: #FFFFFF;
+	font-size: 10pt;
+	font-family: Arial;
+	color: #003366;
+	padding-left: 4px;
+	padding-top: 6px;
+	padding-right: 4px;
+	padding-bottom: 6px;
+}
+.searchtbl .row .kop, .searchtbl .altrow .kop
+{
+	padding-bottom: 3px;
+}
+.searchtbl .row .info, .searchtbl .altrow .info
+{
+	font-size: 10pt;
+	color: #808080;
+	font-family: Arial;
+	padding-top: 3px;
+}
+.searchtbl .row .info a, .searchtbl .altrow .info a
+{
+	font-size: 10pt;
+	color: #808080;
+	font-weight: normal;
+	font-family: Arial;
+	text-decoration: none;
+}
+.searchtbl .row .info a:hover, .searchtbl .altrow .info a:hover
+{
+	text-decoration: underline;
+}
+.searchtbl .footer
+{
+	background-color: #003366;
+	height: 1px;
+}
+
+
+
+/* Footer */
+#footer
+{
+	background-image: url(../Images/footer_line.gif);
+	background-repeat: repeat-x;
+}
+.footer_link
+{
+	padding-left: 9px;
+	padding-top: 8px
+}
+.footer_link a
+{
+	font-family: Arial;
+	font-size: 10pt;
+	color: #003366;
+	text-decoration: none;
+}
+.footer_link a:hover
+{
+	text-decoration: underline;
+}
+.copyright
+{
+	font-family: Arial;
+	font-size: 10pt;
+	color: #999999;
+	text-align: right;
+	padding-right: 9px;
+	padding-top: 8px;
+}
+/* Buttons */
+.action_button
+{
+	border: solid 1px #CCD6E0;
+	background-color: #CBCBCB;
+	color: #003366;
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: bold;
+	padding: 2px 5px 2px 5px;
+	text-decoration: none;
+	cursor: default;
+}
+
+/* Box style part */
+.boxpart
+{
+	BORDER-RIGHT: #ccd6e0 1px solid; 
+	BORDER-TOP: #ccd6e0 1px solid; 
+	BORDER-LEFT: #ccd6e0 1px solid; 
+	BORDER-BOTTOM: #ccd6e0 1px solid;
+	margin-bottom: 14px;
+}
+.boxpart .kop
+{
+	PADDING-LEFT: 10px; 
+	padding-top: 4px; 
+	padding-bottom: 5px;
+	FONT-WEIGHT: bold; 
+	font-size: 10pt; 
+	COLOR: #003366; 
+	BORDER-BOTTOM: #ccd6e0 1px solid; 
+	FONT-FAMILY: Arial; 
+	BACKGROUND-COLOR: #ebeef0;
+}
+.boxpart .kop a
+{
+	FONT-WEIGHT: bold; 
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial; 
+	text-decoration: none;
+}
+.boxpart .kop a:hover
+{
+	text-decoration: underline;
+}
+.boxpart .datum
+{
+	PADDING-LEFT: 10px; 
+	padding-top: 7px; 
+	font-size: 10pt; 
+	FONT-WEIGHT: bold;
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+}
+.boxpart .titel
+{
+	PADDING-LEFT: 5px;
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+	FONT-WEIGHT: bold; 
+}
+.boxpart .titel a
+{
+	PADDING-LEFT: 5px;
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+	text-decoration: none;
+}
+.boxpart .titel a:hover
+{
+	text-decoration: underline;
+}
+.boxpart .content
+{
+	PADDING-LEFT: 5px; 
+	padding-top: 8px; 
+	padding-bottom: 8px;
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+}
+.boxpart .content a
+{
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+}
+.boxpart .regel
+{
+	PADDING-LEFT: 5px; 
+	padding-top: 8px; 
+	padding-bottom: 8px;
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+}
+.boxpart .leeg
+{
+	PADDING-LEFT: 10px; 
+	padding-top: 3px; 
+	padding-bottom: 2px;
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+}
+.boxpart .list
+{
+	padding-top: 3px;
+	padding-left: 5px;
+}
+.boxpart .list a
+{
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial; 
+	text-decoration: none;
+}
+.boxpart .list a:hover
+{
+	text-decoration: underline;
+}
+.boxpart .link
+{
+	padding-top: 3px;
+	padding-left: 17px;
+	padding-bottom: 2px;
+}
+.boxpart .link a
+{
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial; 
+	text-decoration: none;
+}
+.boxpart .link a:hover
+{
+	text-decoration: underline;
+}
+.boxpart .meer
+{
+	padding-top: 2px;
+	PADDING-LEFT: 5px; 
+	padding-bottom: 9px; 
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+}
+.boxpart .meer a
+{
+	FONT-WEIGHT: bold; 
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+	text-decoration: none;
+}
+.boxpart .meer a:hover
+{
+	text-decoration: underline;
+}
+
+
+/* Tabel met afwisselende rij kleuren */
+.tbl
+{
+}
+.tbl .header
+{
+	font-size: 11pt;
+	font-family: Arial;
+	font-weight: bold;
+	color: #003366;
+	background-color: #CCD6E0;
+	padding-left: 6px;
+	padding-top: 6px;
+	padding-right: 4px;
+	padding-bottom: 5px;
+}
+.tbl .header TD
+{
+	border-top: solid 1px #ccd6e0;
+	border-bottom: solid 1px #003366;
+	border-left: solid 1px #aaaaaa;
+}
+.tbl .header A
+{
+	font-size: 11pt;
+	font-family: Arial;
+	font-weight: bold;
+	color: #003366;
+	text-decoration: none;
+}
+.tbl .header A:hover
+{
+	text-decoration: underline;
+}
+.tbl .currentheader
+{
+	background-color: #b7c5d4;
+}
+.tbl .pager
+{
+	background-color: #FFFFFF;
+	padding-bottom: 6px;
+	padding-top: 6px;
+	font-size: 10pt;
+	font-family: Arial;
+	color: #003366;
+	border: solid 1px #FFFFFF;
+}
+.tbl .pager a
+{
+	font-size: 10pt;
+	font-family: Arial;
+	color: #003366;
+	text-decoration: none;
+}
+.tbl .pager a:hover
+{
+	text-decoration: underline;
+}
+.tbl .row
+{
+	background-color: #d9e1e8;
+	font-size: 10pt;
+	font-family: Arial;
+	color: #003366;
+	padding-left: 4px;
+	padding-top: 6px;
+	padding-right: 4px;
+	padding-bottom: 6px;
+}
+.tbl .row a
+{
+	font-size: 10pt;
+	font-family: Arial;
+	color: #003366;
+	font-weight: bold;
+	text-decoration: none;
+}
+.tbl .row a:hover
+{
+	text-decoration: underline;
+}
+.tbl .row TD
+{
+	border-left: solid 1px #aaaaaa;
+}
+.tbl .altrow
+{
+	background-color: #FFFFFF;
+	font-size: 10pt;
+	font-family: Arial;
+	color: #003366;
+	padding-left: 4px;
+	padding-top: 6px;
+	padding-right: 4px;
+	padding-bottom: 6px;
+}
+.tbl .altrow a
+{
+	font-size: 10pt;
+	font-family: Arial;
+	color: #003366;
+	font-weight: bold;
+	text-decoration: none;
+}
+.tbl .altrow a:hover
+{
+	text-decoration: underline;
+}
+.tbl .altrow TD
+{
+	border-left: solid 1px #aaaaaa;
+}
+.tbl .footer
+{
+	background-color: #003366;
+	height: 1px;
+}
+
+
+
+INPUT {font-family: Arial;font-size: 10pt;}
+SELECT {font-family: Arial;font-size: 10pt;	padding-top: 0px; padding-bottom: 0px;}
+TEXTAREA {font-family: Arial;font-size: 10pt;}
+
+.content TD
+{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial; 
+}
+.content
+{
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial; 
+	font-weight:normal;  
+}
+.content A
+{
+	COLOR: #003366; 
+	FONT-FAMILY: Arial; 
+}
+
+.content ul
+{
+	list-style-image:url(..\images\blue\bullet.gif); 
+}
+.content li
+{
+	padding-top: 0px;
+	padding-bottom: 0px;
+	vertical-align:middle;  
+}
+
+.content dt
+{
+	font-weight: bold;
+}
+
+.content select
+{
+	padding-top: 0px;
+	padding-bottom: 0px;	
+}
+
+.content .meer a
+{
+	FONT-WEIGHT: bold; 
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+	text-decoration: none;
+}
+.content .meer a:hover
+{
+	text-decoration: underline;
+}
+.content img
+{
+	margin-left:5;
+	margin-right:5;
+	margin-top:5;
+	margin-bottom:5;
+	
+}
+.content .datum
+{
+	padding-bottom: 5px;
+	font-size: 12pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial; 
+}
+.printbutton
+{
+	border: solid 1px #003366;
+	padding-left: 10px;
+}
+.printbutton a
+{
+	font-size: 10pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+	font-style: italic;
+	text-decoration: none;
+}
+.printbutton a:hover
+{
+	text-decoration: underline;
+}
+
+.paragraph_titel_1
+{
+	font-size: 14pt; 
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+	font-weight:bold; 
+	
+}
+.paragraph_titel_2
+{
+	font-size: 16pt;
+	COLOR: #003366; 
+	FONT-FAMILY: Arial;
+	font-weight:bold; 
+	
+}
+.content hr
+{
+	color:#003366;
+}
+
