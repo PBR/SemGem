@@ -38,7 +38,7 @@ from pyRdfa import pyRdfa
 
 INPUT_LIST = [
         'http://localhost/data/AccessionDetails.html',
-        'https://www.eu-sol.wur.nl/passport/SelectAccessionByAccessionID.do?accessionID=EA01897'
+        'http://localhost/data/SelectAccessionByAccessionID.html'
     ]
 
 
@@ -49,10 +49,13 @@ def main():
     proc = pyRdfa()
     graph = rdflib.Graph()
     #print dir(graph)
-    for files in INPUT_LIST:
+    for files in INPUT_LIST[1:]:
         print files
         graph = proc.graph_from_source(files, graph)
         print len(graph)
+    for s, p, o in graph:
+        if isinstance(p, rdflib.term.URIRef) and 'cropontology' in str(p):
+            graph.parse(p)
     print graph.serialize(format='n3')
 
 
