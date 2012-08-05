@@ -50,13 +50,20 @@ def main():
     graph = rdflib.Graph()
     #print dir(graph)
     for files in INPUT_LIST[1:]:
-        print files
         graph = proc.graph_from_source(files, graph)
-        print len(graph)
+        #print files, len(graph)
     for s, p, o in graph:
         if isinstance(p, rdflib.term.URIRef) and 'cropontology' in str(p):
             graph.parse(p)
-    print graph.serialize(format='n3')
+            #print p, len(graph)
+    subject = rdflib.term.URIRef("https://www.eu-sol.wur.nl/passport/SelectAccessionByAccessionID.do?accessionID=EA01897")
+    for p, o in graph.predicate_objects(subject=subject):
+        if isinstance(p, rdflib.term.URIRef) and 'cropontology' in str(p):
+            print p, o
+            for p2, o2 in graph.predicate_objects(subject=p):
+                print '  ', p2, o2
+
+    #print graph.serialize(format='n3')
 
 
 if __name__ == '__main__':
