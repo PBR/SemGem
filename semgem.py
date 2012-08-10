@@ -33,6 +33,7 @@ Dependencies:
 
 import os
 import rdflib
+import urllib
 from pyRdfa import pyRdfa
 
 
@@ -40,7 +41,34 @@ INPUT_LIST = [
         'http://localhost/data/AccessionDetails.html',
         'http://localhost/data/SelectAccessionByAccessionID.html'
     ]
+RDFS = rdflib.Namespace("http://www.w3.org/2000/01/rdf-schema#")
 
+class Information(object):
+
+    def __init__(self, trait=None, value=[], origin=None):
+        self.trait = trait
+        self.value = value
+        self.origin = origin
+
+    def add_value(self, value):
+        self.value.append(value)
+
+
+def get_info_accession(graph, uri, info=[]):
+    subject = rdflib.term.URIRef(uri)
+    origin = urllib.splitquery(uri)[0].rsplit('/')[2]
+    for pred, objec in graph.predicate_objects(subject=subject):
+        if isinstance(pred, rdflib.term.URIRef) \
+            and 'cropontology' in str(pred):
+            for obj in graph.objects(subject=pred, predicate=RDFS['label']):
+                obj = str(obj)
+                objec = str(objec)
+                if not objec:
+                    continue
+                inf = Information(trait=obj, value=objec,
+                        origin=origin)
+                info.append(inf)
+    return info
 
 def main():
     """ Reads in all the accessions page stored in the data folder and
@@ -49,21 +77,21 @@ def main():
     proc = pyRdfa()
     graph = rdflib.Graph()
     #print dir(graph)
-    for files in INPUT_LIST[1:]:
+    for files in INPUT_LIST:
         graph = proc.graph_from_source(files, graph)
         #print files, len(graph)
     for s, p, o in graph:
         if isinstance(p, rdflib.term.URIRef) and 'cropontology' in str(p):
             graph.parse(p)
-            #print p, len(graph)
-    subject = rdflib.term.URIRef("https://www.eu-sol.wur.nl/passport/SelectAccessionByAccessionID.do?accessionID=EA01897")
-    for p, o in graph.predicate_objects(subject=subject):
-        if isinstance(p, rdflib.term.URIRef) and 'cropontology' in str(p):
-            print p, o
-            for p2, o2 in graph.predicate_objects(subject=p):
-                print '  ', p2, o2
+    
+    info = get_info_accession(graph,
+        "https://www.eu-sol.wur.nl/passport/SelectAccessionByAccessionID.do?accessionID=EA01897",
+        info=[])
+    info = get_info_accession(graph,
+        "http://www.cgn.wur.nl/applications/cgngenis/AccessionDetails.aspx?acnumber=CGN14338",
+        info=info)
 
-    #print graph.serialize(format='n3')
+    return info
 
 
 if __name__ == '__main__':
