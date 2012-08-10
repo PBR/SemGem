@@ -30,3 +30,29 @@ Dependencies:
 * pyRdf from https://github.com/RDFLib/pyrdfa3
 * Flask from http://flask.pocoo.org/
 """
+
+from flask import Flask, Response, render_template, request, redirect, url_for
+import datetime
+
+from semgem import main as semgem
+
+# Create the application.
+APP = Flask(__name__)
+
+##  Web-app
+
+
+@APP.route('/')
+def index():
+    """ Shows the front page.
+    Fills in the index.html template.
+    """
+    print 'semgem %s -- %s -- %s' % (datetime.datetime.now(),
+        request.remote_addr, request.url)
+    info = semgem()
+    return render_template('index.html', info=info)
+
+
+if __name__ == '__main__':
+    APP.debug = True
+    APP.run()
