@@ -43,6 +43,7 @@ INPUT_LIST = [
     ]
 RDFS = rdflib.Namespace("http://www.w3.org/2000/01/rdf-schema#")
 
+
 class Information(object):
 
     def __init__(self, trait=None, value=[], origin=None):
@@ -70,6 +71,7 @@ def get_info_accession(graph, uri, info=[]):
                 info.append(inf)
     return info
 
+
 def main():
     """ Reads in all the accessions page stored in the data folder and
     print all the information gathered.
@@ -82,6 +84,7 @@ def main():
         #print files, len(graph)
     for s, p, o in graph:
         if isinstance(p, rdflib.term.URIRef) and 'cropontology' in str(p):
+            #print p
             graph.parse(p)
     
     info = get_info_accession(graph,
