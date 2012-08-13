@@ -50,7 +50,8 @@ def index():
     print 'semgem %s -- %s -- %s' % (datetime.datetime.now(),
         request.remote_addr, request.url)
     (info, images) = semgem()
-    return render_template('index.html', info=info, images=images)
+    return render_template('index.html', accession="CGN14338",
+        info=info, images=images)
 
 
 if __name__ == '__main__':
