@@ -42,6 +42,7 @@ INPUT_LIST = [
         'http://localhost/data/SelectAccessionByAccessionID.html'
     ]
 RDFS = rdflib.Namespace("http://www.w3.org/2000/01/rdf-schema#")
+FOAF = rdflib.Namespace("http://xmlns.com/foaf/0.1/")
 
 
 class Information(object):
@@ -53,6 +54,11 @@ class Information(object):
 
     def add_value(self, value):
         self.value.append(value)
+
+
+def get_images_in_graph(graph):
+    """ Retrieve the FOAF:Image present in the graph. """
+    return [objec for objec in graph.objects(predicate=FOAF['Image'])]
 
 
 def get_info_accession(graph, uri, info=[]):
@@ -94,7 +100,9 @@ def main():
         "http://www.cgn.wur.nl/applications/cgngenis/AccessionDetails.aspx?acnumber=CGN14338",
         info=info)
 
-    return info
+    images = get_images_in_graph(graph)
+
+    return (info, images)
 
 
 if __name__ == '__main__':
