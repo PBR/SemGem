@@ -35,6 +35,17 @@
             </tr>
           {% endfor %}
         </table>
+
+      <h3>Images for accession: CGN14338</h3>
+      <ul style="list-style:none;">
+        {% for img in images %}
+        <li>
+          <a href="{{img}}" target="popup" title="accessionID"> 
+            <img src="{{img}}" alt="Image of EA01897" title="Image of EA01897" height="100">
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
       </div>
     </div>
   </body>

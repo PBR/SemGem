@@ -49,8 +49,8 @@ def index():
     """
     print 'semgem %s -- %s -- %s' % (datetime.datetime.now(),
         request.remote_addr, request.url)
-    info = semgem()
-    return render_template('index.html', info=info)
+    (info, images) = semgem()
+    return render_template('index.html', info=info, images=images)
 
 
 if __name__ == '__main__':
