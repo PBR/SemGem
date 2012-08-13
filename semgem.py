@@ -56,9 +56,14 @@ class Information(object):
         self.value.append(value)
 
 
-def get_images_in_graph(graph):
+def get_images_in_graph(graph, subjects):
     """ Retrieve the FOAF:Image present in the graph. """
-    return [objec for objec in graph.objects(predicate=FOAF['Image'])]
+    output = []
+    for subject in subjects:
+        subject = rdflib.term.URIRef(subject)
+        output.extend([objec for objec in graph.objects(
+            subject=subject, predicate=FOAF['Image'])])
+    return output
 
 
 def get_info_accession(graph, uri, info=[]):
@@ -100,7 +105,11 @@ def main():
         "http://www.cgn.wur.nl/applications/cgngenis/AccessionDetails.aspx?acnumber=CGN14338",
         info=info)
 
-    images = get_images_in_graph(graph)
+    subjects = [
+        "https://www.eu-sol.wur.nl/passport/SelectAccessionByAccessionID.do?accessionID=EA01897",
+        "http://www.cgn.wur.nl/applications/cgngenis/AccessionDetails.aspx?acnumber=CGN14338",
+    ]
+    images = get_images_in_graph(graph, subjects)
 
     return (info, images)
 
