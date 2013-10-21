@@ -32,6 +32,9 @@ Dependencies:
 """
 
 import os
+import StringIO
+import urllib2
+
 import rdflib
 import urllib
 from rdflib.plugins.parsers.pyRdfa import pyRdfa
@@ -70,9 +73,11 @@ def get_info_accession(graph, uri, info=[]):
     subject = rdflib.term.URIRef(uri)
     origin = urllib.splitquery(uri)[0].rsplit('/')[2]
     for pred, objec in graph.predicate_objects(subject=subject):
+        #print pred, objec
         if isinstance(pred, rdflib.term.URIRef) \
-            and 'cropontology' in str(pred):
+                and 'cropontology' in str(pred):
             for obj in graph.objects(subject=pred, predicate=RDFS['label']):
+                #print '--', obj, objec, origin
                 obj = str(obj)
                 objec = str(objec)
                 if not objec:
@@ -95,8 +100,12 @@ def main():
         #print files, len(graph)
     for s, p, o in graph:
         if isinstance(p, rdflib.term.URIRef) and 'cropontology' in str(p):
-            #print p
-            graph.parse(p, format="nt")
+            stream = urllib2.urlopen(p)
+            text = stream.read()
+            stream.close()
+            text = text.replace('%3A', ':')
+            graph = graph.parse(StringIO.StringIO(text), format="nt")
+            #print p, len(graph)
 
     info = get_info_accession(graph,
         "https://www.eu-sol.wur.nl/passport/SelectAccessionByAccessionID.do?accessionID=EA01897",
