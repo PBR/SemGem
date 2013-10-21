@@ -34,7 +34,7 @@ Dependencies:
 import os
 import rdflib
 import urllib
-from pyRdfa import pyRdfa
+from rdflib.plugins.parsers.pyRdfa import pyRdfa
 
 
 INPUT_LIST = [
@@ -96,8 +96,8 @@ def main():
     for s, p, o in graph:
         if isinstance(p, rdflib.term.URIRef) and 'cropontology' in str(p):
             #print p
-            graph.parse(p)
-    
+            graph.parse(p, format="nt")
+
     info = get_info_accession(graph,
         "https://www.eu-sol.wur.nl/passport/SelectAccessionByAccessionID.do?accessionID=EA01897",
         info=[])
