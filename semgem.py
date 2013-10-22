@@ -37,7 +37,10 @@ import urllib2
 
 import rdflib
 import urllib
-from rdflib.plugins.parsers.pyRdfa import pyRdfa
+try:
+    from rdflib.plugins.parsers.pyRdfa import pyRdfa
+except ImportError:
+    from pyRdfa import pyRdfa
 
 
 INPUT_LIST = [
