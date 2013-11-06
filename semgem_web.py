@@ -62,7 +62,6 @@ def semgem_ui(eusol_id):
     """
     print 'semgem %s -- %s -- %s ** ' % (
         datetime.datetime.now(), request.remote_addr, request.url)
-    eusol_id = "EA01897"
     (info, origins, origins_info, images) = semgem(eusol_id)
     return render_template(
         'result.html',
