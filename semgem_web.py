@@ -31,7 +31,8 @@ Dependencies:
 * Flask from http://flask.pocoo.org/
 """
 
-from flask import Flask, Response, render_template, request, redirect, url_for
+from flask import (Flask, Response, render_template, request, redirect,
+                   url_for, flash)
 import datetime
 
 from semgem import main as semgem
@@ -41,17 +42,50 @@ APP = Flask(__name__)
 
 ##  Web-app
 
-
 @APP.route('/')
 def index():
     """ Shows the front page.
-    Fills in the index.html template.
     """
-    print 'semgem %s -- %s -- %s' % (datetime.datetime.now(),
-        request.remote_addr, request.url)
-    (info, images) = semgem()
-    return render_template('index.html', accession="CGN14338",
-        info=info, images=images)
+    print 'semgem %s -- %s -- %s' % (
+        datetime.datetime.now(), request.remote_addr, request.url)
+    return render_template('index.html')
+
+
+@APP.route('/<eusol_id>', methods=['GET'])
+def semgem_ui(eusol_id):
+    """ Retrieves and displays information for the provided EU-SOL accession
+    identifier.
+
+    :arg eusol_id: the identifier of the accession of interest in the
+        EU-SOL database, see https://www.eu-sol.wur.nl/
+
+    """
+    print 'semgem %s -- %s -- %s ** ' % (
+        datetime.datetime.now(), request.remote_addr, request.url)
+    eusol_id = "EA01897"
+    (info, origins, origins_info, images) = semgem(eusol_id)
+    return render_template(
+        'result.html',
+        accession=eusol_id,
+        origins=origins,
+        origins_info=origins_info,
+        info=info,
+        images=images)
+
+
+@APP.route('/submit', methods=['POST'])
+def submit():
+    """ Redirects to the semgem method in order to provide a nice URL
+
+    """
+    print 'semgem %s -- %s -- %s' % (
+        datetime.datetime.now(), request.remote_addr, request.url)
+    eusol_id = request.form.get('eusol_id', None)
+    if eusol_id:
+        return redirect(url_for('semgem_ui', eusol_id=eusol_id))
+    else:
+        flash('No identifier provided')
+        return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
