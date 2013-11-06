@@ -34,11 +34,13 @@ Dependencies:
 from flask import (Flask, Response, render_template, request, redirect,
                    url_for, flash)
 import datetime
+import sys
 
 from semgem import main as semgem
 
 # Create the application.
 APP = Flask(__name__)
+APP.secret_key = "asda;ljlfsdan"
 
 ##  Web-app
 
@@ -62,7 +64,12 @@ def semgem_ui(eusol_id):
     """
     print 'semgem %s -- %s -- %s ** ' % (
         datetime.datetime.now(), request.remote_addr, request.url)
-    (info, origins, origins_info, images) = semgem(eusol_id)
+    try:
+        (info, origins, origins_info, images) = semgem(eusol_id)
+    except Exception, err:
+        print >> sys.stderr, err.message
+        flash("An error has occured, try again or please inform us.")
+        return redirect(url_for('index'))
     return render_template(
         'result.html',
         accession=eusol_id,
