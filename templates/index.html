@@ -1,52 +1,20 @@
+{% extends "master.html" %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>SemGem</title>
-    
-    <link rel="stylesheet" type="text/css"
-        href="http://www.cgn.wur.nl/applications/cgngenis/Style/blue.css" />
-  </head>
-  <body>
-    <div class="document">
-        <span id="id1"></span>
-        <h1>Accession integration</h1>
+{% block content %}<span id="id1"></span><h1>Semantic Germplasm</h1>
         <p>
-          This page integration information about the Tomato accession
-          "{{ accession }}" from two different germplasm collection.
-        </p>
+    A semantic genebank integration.
+        </p><p>
+    Using semantic web technologies, this application integrate
+    information from two differents genebank for the provided
+    accession.
+        </p><form method="POST" action="{{url_for('submit')}}" >
+          <ul style="list-style-type: none;"><li><label for="eusol_id">
+EU-SOL identifier: </label><input
+                id="eusol_id" name="eusol_id" type="text" value="">
+            </li>
+            <li>
+              <input type="submit" value="Submit">
+            </li></ul></form>
 
-        <table class="boxpart">
-          <tr class="kop">
-            <th>Trait</th>
-            <th>Value</th>
-            <th>Origin</th>
-          </tr>
-          {% for val in info %}
-            <tr>
-              <td>{{ val.trait }}</td>
-              <td>{{ val.value }}</td>
-              <td style="font-style:italic">{{ val.origin }}</td>
-            </tr>
-          {% endfor %}
-        </table>
-
-      <h3>Images for accession: {{ accession }}</h3>
-      <ul style="list-style:none;">
-        {% for img in images %}
-        <li>
-          <a href="{{ img }}" target="popup" title="accessionID"> 
-            <img src="{{ img }}" alt="Image of EA01897" title="Image of EA01897" height="100">
-          </a>
-        </li>
-        {% endfor %}
       </ul>
-      </div>
-    </div>
-  </body>
-</html>
+{% endblock %}
