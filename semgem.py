@@ -44,8 +44,8 @@ except ImportError:
 
 
 INPUT_LIST = [
-        'http://localhost/data/AccessionDetails.html',
-        'http://localhost/data/SelectAccessionByAccessionID.html'
+        'https://localhost/semgem/data/AccessionDetails.html',
+        'https://localhost/semgem/data/SelectAccessionByAccessionID.html'
     ]
 RDFS = rdflib.Namespace("http://www.w3.org/2000/01/rdf-schema#")
 FOAF = rdflib.Namespace("http://xmlns.com/foaf/0.1/")
