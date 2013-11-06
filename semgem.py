@@ -44,9 +44,8 @@ except ImportError:
     from pyRdfa import pyRdfa
 
 
-EUSOL_URL = 'https://www.eu-sol.wur.nl/passport/' \
+EUSOL_URL = 'https://www.eu-sol.wur.nl/test/passport/' \
             'SelectAccessionByAccessionID.do?accessionID=%s'
-EUSOL_URL = 'http://localhost/data/SelectAccessionByAccessionID.html'
 
 RDFS = rdflib.Namespace("http://www.w3.org/2000/01/rdf-schema#")
 FOAF = rdflib.Namespace("http://xmlns.com/foaf/0.1/")
@@ -93,9 +92,9 @@ def main(eusol_id):
     """
     proc = pyRdfa()
     graph = rdflib.Graph()
-    #url = EUSOL_URL % eusol_id
-    print eusol_id
-    url = EUSOL_URL
+    #print eusol_id
+    url = EUSOL_URL % eusol_id
+    #print url
     graph = proc.graph_from_source(url, graph)
     for sub, pred, obj in graph:
         if isinstance(pred, rdflib.term.URIRef) and 'cropontology' in str(pred):
