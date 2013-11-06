@@ -1,0 +1,31 @@
+{% extends "master.html" %}
+
+{% block content %}<span id="id1"></span><h1>Accession integration</h1><p>
+          This page integrates information about the Tomato accession
+          "{{ accession }}" from two different germplasm collection.
+        </p>
+
+        <table class="boxpart">
+          <tr class="kop">
+            <th>Trait</th>
+            {% for source in origins %}
+            <td><a href="{{ origins_info[source] }}">{{ source }}</a></td>
+            {% endfor %}
+          </tr>
+          {% for key in info.keys() | sort %}
+            <tr>
+              <th>{{ key }}</th>
+              {% for source in origins %}
+              <td>{{ info[key][origins_info[source]] | join(", ") }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </table><h3>Images for accession: {{ accession }}</h3>
+      <ul style="list-style:none;">
+        {% for img in images %}<li><a href="{{ img }}" target="popup" title="accessionID"><img
+          src="{{ img }}" alt="Image of EA01897" title="Image of EA01897"
+          height="100"></a>
+        </li>
+        {% endfor %}
+      </ul>
+{% endblock %}
