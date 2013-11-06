@@ -31,7 +31,8 @@ th {
     <a href="https://github.com/PBR/semgem" target="_blank"><img
       style="position: absolute; top: 0; right: 0; border: 0;"
       src="{{url_for('static', filename='Find_me_right_green.png')}}"
-      alt="Find me on GitHub" /></a>
+      alt="Find me on GitHub" /></a>{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<ul class=flashes>{% for category, message in messages %}<li class="{{ category }}">{{ message }}</li>{% endfor %}</ul>{% endif %}{% endwith %}
+
     {% block content %}{% endblock %}
   </body>
 </html>
