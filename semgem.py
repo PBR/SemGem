@@ -27,8 +27,9 @@
 Demo program integrating information from different germplasm databases.
 
 Dependencies:
-* pyRdf from https://github.com/RDFLib/pyrdfa3
-* rdflib from 
+* rdflib from https://github.com/RDFLib/rdflib
+* pyRdf from https://github.com/RDFLib/pyrdfa3 (only required for version
+    older than 4.0.1)
 """
 
 import os
@@ -43,23 +44,12 @@ except ImportError:
     from pyRdfa import pyRdfa
 
 
-INPUT_LIST = [
-        'https://localhost/semgem/data/AccessionDetails.html',
-        'https://localhost/semgem/data/SelectAccessionByAccessionID.html'
-    ]
+EUSOL_URL = 'https://www.eu-sol.wur.nl/passport/' \
+            'SelectAccessionByAccessionID.do?accessionID=%s'
+EUSOL_URL = 'http://localhost/data/SelectAccessionByAccessionID.html'
+
 RDFS = rdflib.Namespace("http://www.w3.org/2000/01/rdf-schema#")
 FOAF = rdflib.Namespace("http://xmlns.com/foaf/0.1/")
-
-
-class Information(object):
-
-    def __init__(self, trait=None, value=[], origin=None):
-        self.trait = trait
-        self.value = value
-        self.origin = origin
-
-    def add_value(self, value):
-        self.value.append(value)
 
 
 def get_images_in_graph(graph, subjects):
@@ -72,9 +62,8 @@ def get_images_in_graph(graph, subjects):
     return output
 
 
-def get_info_accession(graph, uri, info=[]):
+def get_info_accession(graph, uri, info):
     subject = rdflib.term.URIRef(uri)
-    origin = urllib.splitquery(uri)[0].rsplit('/')[2]
     for pred, objec in graph.predicate_objects(subject=subject):
         #print pred, objec
         if isinstance(pred, rdflib.term.URIRef) \
@@ -85,37 +74,46 @@ def get_info_accession(graph, uri, info=[]):
                 objec = str(objec)
                 if not objec:
                     continue
-                inf = Information(trait=obj, value=objec,
-                        origin=origin)
-                info.append(inf)
+                if obj in info:
+                    if uri in info[obj]:
+                        info[obj][uri].append(objec)
+                    else:
+                        info[obj][uri] = [objec]
+                else:
+                    info[obj] = {uri: [objec]}
     return info
 
 
-def main():
+def main(eusol_id):
     """ Reads in all the accessions page stored in the data folder and
     print all the information gathered.
+
+    :arg eusol_id: the eusol identifier of the genome to investigate.
+
     """
     proc = pyRdfa()
     graph = rdflib.Graph()
-    #print dir(graph)
-    for files in INPUT_LIST:
-        graph = proc.graph_from_source(files, graph)
-        #print files, len(graph)
-    for s, p, o in graph:
-        if isinstance(p, rdflib.term.URIRef) and 'cropontology' in str(p):
-            stream = urllib2.urlopen(p)
+    #url = EUSOL_URL % eusol_id
+    print eusol_id
+    url = EUSOL_URL
+    graph = proc.graph_from_source(url, graph)
+    for sub, pred, obj in graph:
+        if isinstance(pred, rdflib.term.URIRef) and 'cropontology' in str(pred):
+            stream = urllib2.urlopen(pred)
             text = stream.read()
             stream.close()
             text = text.replace('%3A', ':')
             graph = graph.parse(StringIO.StringIO(text), format="nt")
-            #print p, len(graph)
+        if pred == RDFS['seeAlso']:
+            graph = proc.graph_from_source(obj, graph)
 
+    info = {}
     info = get_info_accession(graph,
         "https://www.eu-sol.wur.nl/passport/SelectAccessionByAccessionID.do?accessionID=EA01897",
-        info=[])
-    info = get_info_accession(graph,
+        info)
+    info= get_info_accession(graph,
         "http://www.cgn.wur.nl/applications/cgngenis/AccessionDetails.aspx?acnumber=CGN14338",
-        info=info)
+        info)
 
     subjects = [
         "https://www.eu-sol.wur.nl/passport/SelectAccessionByAccessionID.do?accessionID=EA01897",
@@ -123,8 +121,18 @@ def main():
     ]
     images = get_images_in_graph(graph, subjects)
 
-    return (info, images)
+    origins = set()
+    origins_info = {}
+    for trait in info:
+        for source in info[trait]:
+            url = urllib.splitquery(source)[0].rsplit('/')[2]
+            if url not in origins_info:
+                origins.add(url)
+                origins_info[url] = source
+
+
+    return (info, origins, origins_info, images)
 
 
 if __name__ == '__main__':
-    main()
+    main('EA01897')
