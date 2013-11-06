@@ -1,0 +1,42 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>SemGem</title>
+
+    <style>
+html {
+    min-width: 800px;
+}
+
+
+body {
+    margin:auto;
+    min-width: 750px;
+    max-width:1100px;
+    white-space: pre;
+    font-family: monospace;
+    display: block;
+}
+
+th {
+    text-align: left;
+}
+    </style>
+
+  </head>
+  <body>
+    <a href="https://github.com/PBR/semgem" target="_blank"><img
+      style="position: absolute; top: 0; right: 0; border: 0;"
+      src="{{url_for('static', filename='Find_me_right_green.png')}}"
+      alt="Find me on GitHub" /></a>
+    <div class="document">
+    {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
