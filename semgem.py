@@ -111,8 +111,8 @@ def main(eusol_id):
     # Temporary hack until the version in test is the same as the version in
     # prod
     eusol_url = EUSOL2_URL % eusol_id
-    cgn_url = CGN_URL
 
+    subjects = [eusol_url]
     info = {}
     info = get_info_accession(graph, eusol_url, info)
 
@@ -121,8 +121,8 @@ def main(eusol_id):
         cgn_id = info['donor accession number'][eusol_url][0]
         cgn_url = CGN_URL % cgn_id
         info = get_info_accession(graph, cgn_url, info)
+        subjects.append(cgn_url)
 
-    subjects = [eusol_url, cgn_url]
     images = get_images_in_graph(graph, subjects)
 
     origins = set()
@@ -133,7 +133,6 @@ def main(eusol_id):
             if url not in origins_info:
                 origins.add(url)
                 origins_info[url] = source
-
 
     return (info, origins, origins_info, images)
 
