@@ -46,6 +46,10 @@ except ImportError:
 
 EUSOL_URL = 'https://www.eu-sol.wur.nl/test/passport/' \
             'SelectAccessionByAccessionID.do?accessionID=%s'
+EUSOL2_URL = 'https://www.eu-sol.wur.nl/passport/' \
+            'SelectAccessionByAccessionID.do?accessionID=%s'
+CGN_URL = 'http://www.cgn.wur.nl/applications/cgngenis/'\
+          'AccessionDetails.aspx?acnumber=%s'
 
 RDFS = rdflib.Namespace("http://www.w3.org/2000/01/rdf-schema#")
 FOAF = rdflib.Namespace("http://xmlns.com/foaf/0.1/")
@@ -92,10 +96,8 @@ def main(eusol_id):
     """
     proc = pyRdfa()
     graph = rdflib.Graph()
-    #print eusol_id
-    url = EUSOL_URL % eusol_id
-    #print url
-    graph = proc.graph_from_source(url, graph)
+    eusol_url = EUSOL_URL % eusol_id
+    graph = proc.graph_from_source(eusol_url, graph)
     for sub, pred, obj in graph:
         if isinstance(pred, rdflib.term.URIRef) and 'cropontology' in str(pred):
             stream = urllib2.urlopen(pred)
@@ -106,18 +108,21 @@ def main(eusol_id):
         if pred == RDFS['seeAlso']:
             graph = proc.graph_from_source(obj, graph)
 
-    info = {}
-    info = get_info_accession(graph,
-        "https://www.eu-sol.wur.nl/passport/SelectAccessionByAccessionID.do?accessionID=EA01897",
-        info)
-    info= get_info_accession(graph,
-        "http://www.cgn.wur.nl/applications/cgngenis/AccessionDetails.aspx?acnumber=CGN14338",
-        info)
+    # Temporary hack until the version in test is the same as the version in
+    # prod
+    eusol_url = EUSOL2_URL % eusol_id
+    cgn_url = CGN_URL
 
-    subjects = [
-        "https://www.eu-sol.wur.nl/passport/SelectAccessionByAccessionID.do?accessionID=EA01897",
-        "http://www.cgn.wur.nl/applications/cgngenis/AccessionDetails.aspx?acnumber=CGN14338",
-    ]
+    info = {}
+    info = get_info_accession(graph, eusol_url, info)
+
+    # Dynamically retrieve the CGN identifier from the EU-SOL information
+    if 'donor accession number' in info:
+        cgn_id = info['donor accession number'][eusol_url][0]
+        cgn_url = CGN_URL % cgn_id
+        info = get_info_accession(graph, cgn_url, info)
+
+    subjects = [eusol_url, cgn_url]
     images = get_images_in_graph(graph, subjects)
 
     origins = set()
