@@ -48,7 +48,7 @@ EUSOL_URL = 'https://www.eu-sol.wur.nl/test/passport/' \
             'SelectAccessionByAccessionID.do?accessionID=%s'
 EUSOL2_URL = 'https://www.eu-sol.wur.nl/passport/' \
             'SelectAccessionByAccessionID.do?accessionID=%s'
-CGN_URL = 'http://www.cgn.wur.nl/applications/cgngenis/'\
+CGN_URL = 'http://applicaties.wageningenur.nl/applications/cgngenis/' \
           'AccessionDetails.aspx?acnumber=%s'
 
 RDFS = rdflib.Namespace("http://www.w3.org/2000/01/rdf-schema#")
