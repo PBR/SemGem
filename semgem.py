@@ -52,7 +52,10 @@ CGN_URL = 'http://applicaties.wageningenur.nl/applications/cgngenis/' \
           'AccessionDetails.aspx?acnumber=%s'
 
 RDFS = rdflib.Namespace("http://www.w3.org/2000/01/rdf-schema#")
+RDFS2 = rdflib.Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 FOAF = rdflib.Namespace("http://xmlns.com/foaf/0.1/")
+
+DEBUG = False
 
 
 def get_images_in_graph(graph, subjects):
@@ -99,13 +102,17 @@ def main(eusol_id):
     eusol_url = EUSOL_URL % eusol_id
     graph = proc.graph_from_source(eusol_url, graph)
     for sub, pred, obj in graph:
+        if DEBUG:
+            print sub, pred, obj
         if isinstance(pred, rdflib.term.URIRef) and 'cropontology' in str(pred):
             stream = urllib2.urlopen(pred)
             text = stream.read()
             stream.close()
             text = text.replace('%3A', ':')
             graph = graph.parse(StringIO.StringIO(text), format="nt")
-        if pred == RDFS['seeAlso']:
+        if pred == RDFS['seeAlso'] or pred == RDFS2['seeAlso']:
+            if DEBUG:
+                print 'Getting more info at %s' % obj
             graph = proc.graph_from_source(obj, graph)
 
     # Temporary hack until the version in test is the same as the version in
@@ -138,4 +145,7 @@ def main(eusol_id):
 
 
 if __name__ == '__main__':
+    import sys
+    if '--debug' in sys.argv:
+        DEBUG = True
     main('EA01897')
