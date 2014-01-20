@@ -71,7 +71,7 @@ def get_images_in_graph(graph, subjects):
 def get_info_accession(graph, uri, info):
     subject = rdflib.term.URIRef(uri)
     for pred, objec in graph.predicate_objects(subject=subject):
-        #print pred, objec
+        # print pred, objec
         if isinstance(pred, rdflib.term.URIRef) \
                 and 'cropontology' in str(pred):
             for obj in graph.objects(subject=pred, predicate=RDFS['label']):
@@ -100,21 +100,24 @@ def main(eusol_id):
     proc = pyRdfa()
     graph = rdflib.Graph()
     eusol_url = EUSOL_URL % eusol_id
-    graph = proc.graph_from_source(eusol_url, graph)
+    proc.graph_from_source(eusol_url, graph)
     for sub, pred, obj in graph:
-        if DEBUG:
-            print sub, pred, obj
+        #print '--', sub, pred, obj
         if isinstance(pred, rdflib.term.URIRef) and 'cropontology' in str(pred):
             stream = urllib2.urlopen(pred)
             text = stream.read()
             stream.close()
             text = text.replace('%3A', ':')
-            graph = graph.parse(StringIO.StringIO(text), format="nt")
+            graph = graph + graph.parse(StringIO.StringIO(text), format="nt")
         if pred == RDFS['seeAlso'] or pred == RDFS2['seeAlso']:
             if DEBUG:
                 print 'Getting more info at %s' % obj
-            graph = proc.graph_from_source(obj, graph)
+            graph +=  pyRdfa().graph_from_source(obj)
 
+    if DEBUG:
+        print '\nGraph contains:'
+        for sub, pred, obj in graph:
+            print sub, pred, obj
     # Temporary hack until the version in test is the same as the version in
     # prod
     eusol_url = EUSOL2_URL % eusol_id
