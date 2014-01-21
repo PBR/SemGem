@@ -8,6 +8,7 @@ Prototype application to show the potential of integration of information from a
 Contact
 ====
 Richard Finkers (richard.finkers@wur.nl)
+
 Pierre-Yves Chibon
 
 
