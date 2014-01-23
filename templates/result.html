@@ -1,8 +1,10 @@
 {% extends "master.html" %}
 
-{% block content %}<span id="id1"></span><h1>Accession integration</h1><p>
-          This page integrates information about the Tomato accession
-          "{{ accession }}" from two different germplasm collection.
+{% block content %}
+    <span id="id1"></span><h1>Accession integration</h1>
+    (<a href="{{ url_for('index')}}">Home</a>)
+        <p>
+          This page integrates information about the Tomato accession "{{ accession }}" from two different germplasm collection.
         </p>
 
         <table class="boxpart">
