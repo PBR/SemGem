@@ -1,17 +1,26 @@
 {% extends "master.html" %}
 
-{% block content %}<span id="id1"></span><h1>Semantic Germplasm</h1>
-    <p>Prototype application to show the potential for integration breeding database with genebank passport, characterization and evaluation data.</p>
-    <p>This appliction uses semantic web technology to aggregate information from both resources. The integration is currently only possible with EU-SOL records and records from the genebank of the Centre For Genetic Resources (CGN), Wageningen UR, The Netherlands.</p>
-    <form method="POST" action="{{url_for('submit')}}" >
-          <ul style="list-style-type: none;"><li><label for="eusol_id">
-              EU-SOL accession number: </label><input
-                id="eusol_id" name="eusol_id" type="text" value="">
-            </li>
-            <li>
-              <input type="submit" value="Submit">
-            </li></ul></form>
-
-      </ul>
-    <p>Valid EU-SOL accessions, with corresponding records from the CGN genebank are from EA01895 till EA02055.</p>
+{% block content %}
+  <span id="id1"></span><h1>Semantic Germplasm</h1>
+  <p>
+    Prototype application to show the potential for integration breeding database with genebank passport, characterization and evaluation data.
+  </p>
+  <p>
+    This appliction uses semantic web technology to aggregate information from both resources. The integration is currently only possible with
+    EU-SOL records and records from the genebank of the Centre For Genetic Resources (CGN), Wageningen UR, The Netherlands.
+  </p>
+  <form method="POST" action="{{url_for('submit')}}" >
+    <ul style="list-style-type: none;">
+      <li>
+        <label for="eusol_id">EU-SOL accession number: </label>
+        <input id="eusol_id" name="eusol_id" type="text" value="">
+      </li>
+      <li>
+        <input type="submit" value="Submit">
+      </li>
+    </ul>
+  </form>
+  <p>
+    Valid EU-SOL accessions, with corresponding records from the CGN genebank are from EA01895 till EA02055.
+  </p>
 {% endblock %}
