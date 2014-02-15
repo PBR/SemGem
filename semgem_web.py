@@ -44,6 +44,7 @@ APP.secret_key = "asda;ljlfsdan"
 
 ##  Web-app
 
+
 @APP.route('/')
 def index():
     """ Shows the front page.
