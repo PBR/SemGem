@@ -32,7 +32,6 @@ Dependencies:
     older than 4.0.1)
 """
 
-import os
 import StringIO
 import urllib2
 
@@ -47,7 +46,7 @@ except ImportError:
 EUSOL_URL = 'https://www.eu-sol.wur.nl/test/passport/' \
             'SelectAccessionByAccessionID.do?accessionID=%s'
 EUSOL2_URL = 'https://www.eu-sol.wur.nl/passport/' \
-            'SelectAccessionByAccessionID.do?accessionID=%s'
+             'SelectAccessionByAccessionID.do?accessionID=%s'
 CGN_URL = 'http://applicaties.wageningenur.nl/applications/cgngenis/' \
           'AccessionDetails.aspx?acnumber=%s'
 
@@ -107,13 +106,14 @@ def main(eusol_id):
         if pred == RDFS['seeAlso'] or pred == RDFS2['seeAlso']:
             if DEBUG:
                 print 'Getting more info at %s' % obj
-            graph +=  pyRdfa().graph_from_source(obj)
+            graph += pyRdfa().graph_from_source(obj)
 
     # Expand the graph info by retrieving the information from the
     # cropontology website.
     for sub, pred, obj in graph:
         #print '--', sub, pred, obj
-        if isinstance(pred, rdflib.term.URIRef) and 'cropontology' in str(pred):
+        if isinstance(pred, rdflib.term.URIRef) \
+                and 'cropontology' in str(pred):
             stream = urllib2.urlopen(pred)
             text = stream.read()
             stream.close()
