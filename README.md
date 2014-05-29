@@ -7,6 +7,8 @@ Prototype application to show the potential of integration of information from
 a Breeding database with records from genebanks. This integration relies on
 Semantic web technology (RDFa annotations) in the pages of both databases
 
+This prototype is described in the manuscript: Genebanks and genomics: how to interconnect data from both communities?, which is published in Plant Genetic Resources (http://dx.doi.org/10.1017/S1479262114000689).
+
 Contact
 =======
 Richard Finkers (richard.finkers@wur.nl)
